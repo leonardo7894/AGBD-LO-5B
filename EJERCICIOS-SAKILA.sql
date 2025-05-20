@@ -186,5 +186,34 @@ INNER JOIN genres g on g.GenreId = t.GenreId
 GROUP by g.GenreId 
 
 4º
+SELECT count(tracks.albumid) as cant_canciones,albums.title from tracks
+INNER JOIN albums on albums.albumid = tracks.albumid
+group by tracks.albumid
+HAVING cant_canciones > 5
+ 
+5º
+SELECT Title,total from invoices i
+INNER JOIN invoice_items ii on ii.InvoiceId = i.InvoiceId
+INNER JOIN tracks t on t.TrackId = ii.TrackId
+INNER JOIN albums a on a.AlbumId = t.AlbumId
+ORDER by total ASC
+LIMIT 10 ;
 
+6º
+SELECT t.name as nombre ,g.name as genero,Title,total from invoices i
+INNER JOIN invoice_items ii on ii.InvoiceId = i.InvoiceId
+INNER JOIN tracks t on t.TrackId = ii.TrackId
+INNER JOIN albums a on a.AlbumId = t.AlbumId
+INNER JOIN genres g on g.GenreId = t.GenreId
+WHERE total = 0.99
 
+7º
+SELECT t.name as nombre_del_tema,t.Milliseconds as Duracion,Title as nombre_disco,ar.name as nombre_artista from invoices i
+INNER JOIN invoice_items ii on ii.InvoiceId = i.InvoiceId
+INNER JOIN tracks t on t.TrackId = ii.TrackId
+INNER JOIN albums a on a.AlbumId = t.AlbumId
+INNER JOIN artists ar on ar.ArtistId = a.ArtistId
+ORDER by t.Milliseconds -- se mide en milisegundos la duracion ?
+limit 20;
+
+8º
