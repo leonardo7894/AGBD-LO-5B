@@ -1,0 +1,66 @@
+CREATE TABLE "PRODUCTO" (
+	"id_prod"	INTEGER,
+	"nombre"	VARCHAR(40) NOT NULL,
+	"id_categ"	INTEGER NOT NULL,
+	"id_precio"	INTEGER NOT NULL,
+    "id_marca"	INTEGER NOT NULL,
+    "metodo_pago"	VARCHAR(40) NOT NULL,
+	PRIMARY KEY("id_prod" AUTOINCREMENT),
+    FOREIGN KEY ("id_categ") REFERENCES CATEGORIA ("id_categ")
+    FOREIGN KEY ("id_precio") REFERENCES PRECIO ("id_precio")
+    FOREIGN KEY ("id_marca") REFERENCES MARCA ("id_marca")
+    FOREIGN KEY ("metodo_pago") REFERENCES METODO ("metodo_pago")
+);
+
+
+CREATE TABLE "CATEGORIA" (
+	"id_categ"	INTEGER,
+	"nombre"	VARCHAR(40) NOT NULL,
+	PRIMARY KEY("id_categ" AUTOINCREMENT)
+   
+);
+
+
+CREATE TABLE "PRECIO" (
+	"id_precio"	INTEGER,
+	"precio_may"	INTEGER NOT NULL,
+	"precio_unid"	INTEGER NOT NULL,
+	PRIMARY KEY("id_precio" AUTOINCREMENT)
+);
+
+
+CREATE TABLE "MARCA" (
+	"id_marca"	INTEGER,
+	"nombre"	VARCHAR(40) NOT NULL,
+	PRIMARY KEY("id_marca" AUTOINCREMENT)
+);
+
+
+
+
+
+
+inserts
+
+INSERT into CATEGORIA (id_categ,nombre,id_prod)
+VALUES ("13","Confiteria","1"),("9","Bebidas","5"),("21","Farmacia","4"),("4","Almacen","3"),("11","Higiene","2");
+
+
+
+INSERT into PRECIO (id_precio,precio_may,precio_unid,id_prod)
+VALUES ("1","7477","2000","1"),("5","2561","3701","5"),("4","2735","4124","4"),("3","3233","4723","3"),("2","6103","8147","2");
+
+
+INSERT into MARCA (id_marca,nombre)
+VALUES ("1","Pepsi"),("5","Caracharra"),("4","Tio Cacho"),("3","Gomes Da Costa"),("2","Curitas Frozen");
+
+
+INSERT into PRODUCTO (id_prod,nombre,id_categ,id_precio,id_marca)
+VALUES ("1","Alfajor","13","1","5"),("5","Pepsi","9","5","1"),("4","Curitas","21","4","2"),("3","Lata de Atun","4","3","3"),("2","Acondicinado","11","2","4");
+
+
+
+
+SELECT p.nombre, m.nombre maraca, pr.precio_may precio_por_mayor, pr.precio_unid precio_por_unidad from PRODUCTO p
+INNER JOIN MARCA m on p.id_marca = m.id_marca
+INNER JOIN PRECIO pr on pr.id_precio = p.id_precio
