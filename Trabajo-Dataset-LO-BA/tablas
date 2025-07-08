@@ -64,3 +64,11 @@ VALUES ("1","Alfajor","13","1","5"),("5","Pepsi","9","5","1"),("4","Curitas","21
 SELECT p.nombre, m.nombre maraca, pr.precio_may precio_por_mayor, pr.precio_unid precio_por_unidad from PRODUCTO p
 INNER JOIN MARCA m on p.id_marca = m.id_marca
 INNER JOIN PRECIO pr on pr.id_precio = p.id_precio
+
+
+
+
+
+
+
+
