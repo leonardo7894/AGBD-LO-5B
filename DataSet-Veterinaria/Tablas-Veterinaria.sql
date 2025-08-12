@@ -1,12 +1,66 @@
 CREATE TABLE "CATALOGO" (
 	"id_catalogo"	INTEGER,
-	"tipoProduct_id"	INTEGER NOT NULL,
 	"id_Tipo_Comida"	INTEGER NOT NULL,
 	"id_Juguete"	INTEGER NOT NULL,
+	"id_Higiene"	INTEGER NOT NULL,
+	"id_Accesorio"	INTEGER NOT NULL,
 	PRIMARY KEY ("id_catalogo" AUTOINCREMENT),
-	FOREIGN KEY ("tipoProduct_id") REFERENCES Tipo_Producto("id")
-	FOREIGN KEY ("id_Tipo_Comida") REFERENCES Tipos_de_Comidas("id")
-	FOREIGN KEY ("id_Juguete") REFERENCES JUGUETES("id")
+	FOREIGN KEY ("id_Accesorio") REFERENCES Tipo_Accesorio("id_Accesorio")
+	FOREIGN KEY ("id_Tipo_Comida") REFERENCES Tipos_de_Comidas("id_Tipo_Comida")
+	FOREIGN KEY ("id_Juguete") REFERENCES JUGUETES("id_Juguete")
+	FOREIGN KEY ("id_Higiene") REFERENCES Tipos_Higiene("id_Higiene")
+);
+
+CREATE TABLE "FARMACIA" (
+	"id_Farmacia"	INTEGER,
+	"id_Alimentos_Medicados"	INTEGER NOT NULL,
+	"id_Pastillas"	INTEGER NOT NULL,
+	PRIMARY KEY ("id_Farmacia" AUTOINCREMENT),
+	FOREIGN KEY ("id_Alimentos_Medicados") REFERENCES ALIMENTOS_MEDICADOS("id_Alimentos_Medicados")
+	FOREIGN KEY ("id_Pastillas") REFERENCES PASTILLAS("id_Pastillas")
+);
+
+
+CREATE TABLE "PASTILLAS" (
+	"id_Pastillas"	INTEGER,
+	"Tipo_Emfermedad"	VARCHAR(20) NOT NULL,
+	"Tipo_Animal"	VARCHAR(20) NOT NULL,
+	"Peso_Animal"	INTEGER NOT NULL,
+	"Marca"	VARCHAR(20) NOT NULL,
+	"Precio"	INTEGER NOT NULL,
+	PRIMARY KEY("id_Pastillas" AUTOINCREMENT)
+);
+
+CREATE TABLE "ALIMENTOS_MEDICADOS" (
+	"id_Alimentos_Medicados"	INTEGER,
+	"Tipo_Animal"	VARCHAR(20) NOT NULL,
+	"Marca"	VARCHAR(20) NOT NULL,
+	"Peso"	VARCHAR(20) NOT NULL,
+	"Precio"	INTEGER NOT NULL,
+	PRIMARY KEY("id_Alimentos_Medicados" AUTOINCREMENT)
+);
+
+CREATE TABLE `Tipos_Higiene` (
+	`id_Higiene`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`id_Cepillos`	INTEGER NOT NULL,
+	`id_Shampoo`	INTEGER NOT NULL,
+	`id_Otros`	INTEGER NOT NULL
+);
+
+CREATE TABLE `OTROS` (
+	`id_Otros`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Producto`	VARCHAR(20) NOT NULL,
+	`Adicional`	VARCHAR(20),
+	`Colores`	VARCHAR(20) NOT NULL,
+	`Precio`	INTEGER NOT NULL
+);
+
+CREATE TABLE `Tipo_Accesorio` (
+	`id_Accesorio`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`id_Ropa`	INTEGER,
+	`id_Cama`	INTEGER,
+	`id_Transportadora`	INTEGER,
+	`id_Collares`	INTEGER
 );
 
 CREATE TABLE "AVES" (
@@ -102,6 +156,71 @@ CREATE TABLE "ROPA" (
 	PRIMARY KEY("id_Ropa" AUTOINCREMENT)
 );
 
+CREATE TABLE `SHAMPOO` (
+	`id_Shampoo`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Marca`	VARCHAR ( 20 ) NOT NULL,
+	`Precio`	VARCHAR ( 20 ) NOT NULL,
+	`Tipo_Animal`	VARCHAR ( 20 ) NOT NULL
+);
+
+CREATE TABLE `CEPILLOS` (
+	`id_Cepillos`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Color`	INTEGER NOT NULL,
+	`Tamaño`	INTEGER NOT NULL,
+	`Precio`	INTEGER NOT NULL
+);
+
+			  PASTILLAS
+
+INSERT INTO PASTILLAS ("id_Pastillas","Tipo_Emfermedad","Tipo_Animal","Peso_Animal","Marca","Precio")
+VALUES("1","Antiparasitaria","Perros"," 30-50kg","Basken","29.800"),
+("2","Antipulgas","Perros","20-40kg","Simparica","28.900"),
+("3","Mata Pulgas","Perros","2-4kg","NexGard","32.900"),
+("4","Analgesicas y Antinflamatoria","Perros","10-18kg ","Meloxicam","25.900"),
+("5","Analgesicas y Antinflamatoria","Perros","5-10kg","Meloxic","30.900"),
+("6","Analgesicas y Antinflamatoria","Perros y Gatos","5-10kg","Meloxic","30.900"),
+("7","Analgesicas y Antinflamatoria","Perros","5-10kg","Meloxic","21.900"),
+("8","Antiparasitaria","Perros","20-30kg","Praziquantel","33.900")
+
+					 Tipo_Accesorio
+
+insert into Tipo_Accesorio ("id_Accesorio","id_Ropa","id_Cama","id_Transportadora","id_Collares")
+values('1','1','1','1','1'),
+('2','2','2','2','2'),
+('3','3','3','3','3'),
+('4','4','4','4','4'),
+('5','5','5','5','5'),
+('6','6','6','6','6'),
+('7','7','7','7','7'),
+('8','8','8','8','8')
+
+                   ALIMENTOS_MEDICADOS
+
+INSERT INTO ALIMENTOS_MEDICADOS ("id_Alimentos_Medicados", "Tipo_Animal", "Marca", "Peso", "Precio")
+VALUES ("1","Perro","Royal Canin","1KG","22.500"),
+("2","Gato","Whiskas","900g","21.000"),
+("3","Perro","Royal Canin","1KG","23.000"),
+("4","Perro","Royal Canin","1KG","23.500"),
+("5","Gato","Royal Canin","900g","25.500"),
+("6","Gato","Cat Chow","900g","24.500"),
+("7","Perro","Royal Canin","900g","25.500"),
+("8","Perro","Royal Canin","900g","25.500")
+
+                     Tipos_de_Comidas
+
+INSERT INTO "Tipos_de_Comidas" ("id_Tipo_Comida","id_perros","id_Gatos","id_Aves","id_Conejos") VALUES (1,1,1,1,1),
+ (2,2,2,2,2),
+ (3,3,3,3,3),
+ (4,4,4,4,4),
+ (5,5,5,NULL,NULL),
+ (6,6,6,NULL,NULL),
+ (7,7,7,NULL,NULL),
+ (8,8,8,NULL,NULL),
+ (9,9,NULL,NULL,NULL),
+ (10,10,NULL,NULL,NULL),
+ (11,11,NULL,NULL,NULL),
+ (12,12,NULL,NULL,NULL)
+
                     PERROS
 
 INSERT INTO PERROS (id_perros,Precio,Edades,Peso_Paquete,Marca)
@@ -139,6 +258,29 @@ VALUES("11","250.000","Adultos","4KG","Pedigree");
 
 INSERT INTO PERROS (id_perros,Precio,Edades,Peso_Paquete,Marca)
 VALUES("12","55.000","2 a 18 meses","15KG","Pedigree");
+
+               CEPILLOS
+          
+insert into CEPILLOS ("id_Cepillos", "Color","Tamaño", "Precio")
+values ('1','Gris','Intermedio','16.700'),
+('2','Blanco','Pequeño','20.000'),
+('3','Negro y Celeste','Estandar','7,000'),
+('4','Blanco','Pequeño','12.000'),
+('5','Negro y Fucsia','Pequeño','27.800'),
+('6','Blanco y Verde o Blanco y Rosa','Pequeño','9.900'),
+('7','Blanco','Intermedio','21,300'),
+('8','Gris','Pequeño','25.200')
+
+                        JUGUETES
+
+INSERT INTO "JUGUETES" ("id_Juguete","Precio","Marca","Tipo_Juguete","Material") VALUES (1,'3.500','VetLife','Hueso','Goma'),
+ (2,'2.900','VetLife','pelota','Goma'),
+ (3,'3.900','VetLife','Pelota','Goma'),
+ (4,'4.100','VetLife','Soga Mordedora','Goma'),
+ (5,'3.200','VetLife','Soga Mordedora','Tela'),
+ (6,'3.800','VetLife','Pelota','Estilo Tenis'),
+ (7,'14.900','VetLife','Poste Rascador','Madera y Tela'),
+ (8,'4.300','VetLife','Peluche Pequeño','Tela y Algodón');
 
                             GATOS
 
@@ -219,3 +361,17 @@ VALUES ("1","Pequeño","cutte","Correa","7.900"),
 ("6","Largo","Minimalista","Correa","14.900"),
 ("7","Mediano","Minimalista","Collar","8.200"),
 ("8","Grande","Simple","Correa","");
+
+				SHAMPOO
+
+insert into "SHAMPOO" ("id_Shampoo", "Marca", "Precio","Tipo_Animal")
+values ('1', 'MoonCat', '9.800', 'Gatos'),
+('2', 'Coconut Milk', '10.700', 'Perros'),
+('3', 'Mascota Moda', '4.800', 'Perros y Gatos'),
+('4', 'Genial Pet', '9.900', 'Perros y Gatos'),
+('5', 'Sanol', '11.800', 'Perros y Cachorros'),
+('6', 'Puppy', '13.900', 'Perros y Cachorros'),
+('7', 'Osspret', '10.000', 'Perros y Gatos'),
+('8', 'Osspret', '13.000', 'Cachorros');
+
+              
