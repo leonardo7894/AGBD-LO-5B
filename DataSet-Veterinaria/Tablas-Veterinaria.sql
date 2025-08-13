@@ -15,9 +15,15 @@ CREATE TABLE "FARMACIA" (
 	"id_Farmacia"	INTEGER,
 	"id_Alimentos_Medicados"	INTEGER NOT NULL,
 	"id_Pastillas"	INTEGER NOT NULL,
+	"id_Jarabes"	INTEGER NOT NULL,
+	"id_Pipetas"	INTEGER NOT NULL,
+	"id_Vacunas"	INTEGER NOT NULL,
 	PRIMARY KEY ("id_Farmacia" AUTOINCREMENT),
 	FOREIGN KEY ("id_Alimentos_Medicados") REFERENCES ALIMENTOS_MEDICADOS("id_Alimentos_Medicados")
 	FOREIGN KEY ("id_Pastillas") REFERENCES PASTILLAS("id_Pastillas")
+	FOREIGN KEY ("id_Jarabes") REFERENCES JARABES("id_Jarabes")
+	FOREIGN KEY ("id_Pipetas") REFERENCES PIPETAS("id_Pipetas")
+	FOREIGN KEY ("id_Vacunas") REFERENCES VACUNAS("id_Vacunas")
 );
 
 
@@ -170,6 +176,63 @@ CREATE TABLE `CEPILLOS` (
 	`Precio`	INTEGER NOT NULL
 );
 
+CREATE TABLE `JARABES` (
+	`id_Jarabes`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Tipo_Jarabe`	VARCHAR ( 20 ) NOT NULL,
+	`Tipo_Animal`	VARCHAR ( 20 ) NOT NULL,
+	`Marca`	VARCHAR ( 20 ) NOT NULL,
+	`Precio`	INTEGER NOT NULL
+);
+
+CREATE TABLE `PIPETAS` (
+	`id_Pipetas`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Tipo_Animal`	VARCHAR(20) NOT NULL,
+	`Marca`	VARCHAR(20) NOT NULL,
+	`Precio`	INTEGER NOT NULL
+);
+
+CREATE TABLE `VACUNAS` (
+	`id_Vacunas`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Tipo_Vacuna`	VARCHAR(20) NOT NULL,
+	`Precio`	INTEGER NOT NULL
+);
+
+           VACUNAS
+
+insert into VACUNAS ("id_Vacunas", "Tipo_Vacuna", "Precio")
+values ("1", "Sextuple", "22.000"),
+("2", "Antirrábica", "23.000"),
+("3", "Bordetella", "20.200"),
+("4", "Leishmaniosis", "22.500"),
+("5", "CoronaVirus Canino", "21.500"),
+("6", "Tiple Felina", "21.900"),
+("7", "Leucemia Felina", "21.300"),
+("8", "Clamidiosis Felina", "19.900")
+
+                   FARMACIA
+
+insert into FARMACIA ("id_Farmacia", "id_Alimentos_Medicados", "id_Pastillas", "id_Jarabes", "id_Jarabes", "id_Vacunas")
+values ("1","1","1","1","1","1"),
+("2","2","2","2","2","2","2"),
+("3","3","3","3","3","3","3"),
+("4","4","4","4","4","4","4"),
+("5","5","5","5","5","5","5"),
+("6","6","6","6","6","6","6"),
+("7","7","7","7","7","7","7"),
+("8","8","8","8","8","8","8")
+
+               PIPETAS
+
+INSERT INTO PIPETAS ("id_Pipetas", "Tipo_Animal", "Marca", "Precio")
+VALUES ("1", "Perros", "Power Ultra", "19.500"),
+("2", "Perros", "Power Ultra", "18.500"),
+("3", "Perros", "Power Ultra", "19.900"),
+("4", "Perros", "Power Ultra", "19.500"),
+("5", "Perros", "Power Ultra", "20.500"),
+("6", "Gatos", "Power Spot On", "19.800"),
+("7", "Gatos", "Power Spot On", "18.800"),
+("8", "Gatos", "Power Met", "19.200")
+
 			  PASTILLAS
 
 INSERT INTO PASTILLAS ("id_Pastillas","Tipo_Emfermedad","Tipo_Animal","Peso_Animal","Marca","Precio")
@@ -193,6 +256,18 @@ values('1','1','1','1','1'),
 ('6','6','6','6','6'),
 ('7','7','7','7','7'),
 ('8','8','8','8','8')
+
+                     JARABES
+
+insert into JARABES ("id_Jarabes", "Tipo_Jarabe", "Tipo_Animal", "Marca", "Precio")
+values ("1", "Tónico Antianémico Vitamínico", "Perros y Gatos", "TonaVit", "16.900"),
+("2", "Mucolítico", "Perros y Gatos", "Laika", "15.900"),
+("3", "Mucolítico", "Perros y Gatos", "Laika", "14.900"),
+("4", "Antiparasitorio Digestivo ", "Perros y Gatos", "VerStop", "17.900"),
+("5", "Protector Hepático de Origen Natural ", "Perros y Gatos", "Silimadrag", "12.900"),
+("6", "Regulador Intestinal", "Perros y Gatos", "Himalaya", "13.500"),
+("7", "Complejo B Oral", "Perros y Gatos", "Bongo", "$14.700"),
+("8", "Antiflamatorio", "Perros y Gatos", "Meloxi Laika", "15.800")
 
                    ALIMENTOS_MEDICADOS
 
